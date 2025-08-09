@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Acqua Facile</title>
     
-    <!-- Queste righe migliorano l'aspetto se salvi l'app sulla schermata Home del telefono -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/200/water-bottle.png">
@@ -50,6 +49,13 @@
             border-bottom: 2px solid #e0e0e0;
             padding-bottom: 8px;
             margin-top: 20px;
+        }
+        
+        h3 {
+             margin-top: 0;
+            font-size: 1.2rem;
+            color: #005a8d;
+            text-align: center;
         }
 
         /* Gestione Schermate */
@@ -104,7 +110,7 @@
             font-weight: bold;
         }
 
-        /* Schermata 2 & 3: Pulsanti di scelta */
+        /* Schermate di Scelta */
         .choice-grid {
             display: flex;
             flex-direction: column;
@@ -202,30 +208,45 @@
 
         #instructions-display {
             display: flex;
+            flex-direction: column;
             gap: 15px;
-            justify-content: center;
-        }
-        .dispenser-column {
-            flex: 1;
-            padding: 15px;
-            background: #e9f5ff;
-            border-radius: 10px;
-            text-align: center;
         }
 
-        .dispenser-column h3 {
-            margin-top: 0;
-            font-size: 1.1rem;
-            color: #005a8d;
+        .instruction-group {
+            background: #e9f5ff;
+            border-radius: 10px;
+            padding: 15px;
         }
-        .water-type {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-top: 10px;
+
+        .instruction-group ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        .water-liters {
-            font-size: 1.1rem;
+
+        .instruction-group li {
+            font-size: 1.2rem;
+            padding: 8px 0;
+            border-bottom: 1px solid #cce7ff;
         }
+        
+        .instruction-group li:last-child {
+            border-bottom: none;
+        }
+
+        .instruction-group li strong {
+            display: inline-block;
+            width: 80px;
+        }
+        
+        .final-split {
+            display: flex;
+            gap: 15px;
+        }
+        .final-split > div {
+             flex: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -253,7 +274,6 @@
                     <button class="btn-control" data-bottle="2" data-action="plus">+</button>
                 </div>
             </div>
-            <!-- NUOVA BOTTIGLIA -->
             <div class="bottle-selector">
                 <div class="bottle-icon">🍶</div>
                 <div class="bottle-label">1,5 Litri</div>
@@ -327,7 +347,7 @@
             </div>
 
             <div class="result-section instructions">
-                <h2>Istruzioni di prelievo</h2>
+                <h2>Piano di riempimento</h2>
                 <div id="instructions-display"></div>
             </div>
 
@@ -338,9 +358,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Stato dell'applicazione
             const state = {
-                bottles: { '5': 0, '2': 0, '1.5': 0, '1': 0 }, // MODIFICATO: aggiunto 1.5
+                bottles: { '5': 0, '2': 0, '1.5': 0, '1': 0 },
                 waterMix: null,
                 dispensers: null
             };
@@ -353,12 +372,10 @@
                 document.getElementById(screenId).classList.add('active');
             };
 
-            // --- Schermata 1: Gestione Bottiglie ---
             document.querySelectorAll('.btn-control').forEach(button => {
                 button.addEventListener('click', () => {
                     const bottleSize = button.dataset.bottle;
                     const action = button.dataset.action;
-
                     if (action === 'plus') {
                         state.bottles[bottleSize]++;
                     } else if (action === 'minus' && state.bottles[bottleSize] > 0) {
@@ -369,8 +386,7 @@
             });
             
             document.getElementById('btn-to-water-type').addEventListener('click', () => {
-                // MODIFICATO: aggiunto calcolo per 1.5 litri
-                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles['1.5'] * 1.5) + (state.bottles[1] * 1);
+                const totalLiters = Object.entries(state.bottles).reduce((acc, [size, count]) => acc + (parseFloat(size) * count), 0);
                 if (totalLiters > 0) {
                     navigateTo('screen-water-type');
                 } else {
@@ -378,7 +394,6 @@
                 }
             });
 
-            // --- Schermata 2: Gestione Tipo Acqua ---
             document.querySelectorAll('#screen-water-type .btn-choice').forEach(button => {
                 button.addEventListener('click', () => {
                     state.waterMix = button.dataset.mix;
@@ -386,96 +401,129 @@
                 });
             });
 
-            // --- Schermata 3: Gestione Erogatori ---
             document.querySelectorAll('#screen-dispensers .btn-choice').forEach(button => {
                 button.addEventListener('click', () => {
                     state.dispensers = parseInt(button.dataset.dispensers, 10);
                     calculateAndShowResults();
                 });
             });
-
-            // --- Schermata 4: Calcolo e Visualizzazione Risultati ---
+            
             const calculateAndShowResults = () => {
-                // 1. Calcola litri totali
-                // MODIFICATO: aggiunto calcolo per 1.5 litri
-                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles['1.5'] * 1.5) + (state.bottles[1] * 1);
+                // 1. CREA LISTA BOTTIGLIE
+                const bottleList = [];
+                for (const [size, count] of Object.entries(state.bottles)) {
+                    for (let i = 0; i < count; i++) {
+                        bottleList.push(parseFloat(size));
+                    }
+                }
+                bottleList.sort((a, b) => b - a); // Ordina dalla più grande alla più piccola
 
-                // 2. Calcola litri per tipo di acqua
-                let stillLiters = 0;
-                let sparklingLiters = 0;
+                // 2. IMPOSTA RAPPORTO DESIDERATO
+                let targetStillRatio;
                 switch (state.waterMix) {
-                    case 'balanced':
-                        stillLiters = totalLiters * 0.5;
-                        sparklingLiters = totalLiters * 0.5;
-                        break;
-                    case 'prevalence_still':
-                        stillLiters = totalLiters * 0.7;
-                        sparklingLiters = totalLiters * 0.3;
-                        break;
-                    case 'prevalence_sparkling':
-                        stillLiters = totalLiters * 0.3;
-                        sparklingLiters = totalLiters * 0.7;
-                        break;
+                    case 'prevalence_still': targetStillRatio = 0.7; break;
+                    case 'prevalence_sparkling': targetStillRatio = 0.3; break;
+                    default: targetStillRatio = 0.5;
                 }
 
-                // 3. Calcola il costo totale
-                const totalCost = (stillLiters * PRICE_STILL) + (sparklingLiters * PRICE_SPARKLING);
+                // 3. ASSEGNA BOTTIGLIE IN MODO INTELLIGENTE
+                const stillBottles = [];
+                const sparklingBottles = [];
+                let assignedStillLiters = 0;
+                let assignedSparklingLiters = 0;
 
-                // 4. Arrotonda il costo ai 5 centesimi superiori
+                for (const bottle of bottleList) {
+                    const totalAssignedLiters = assignedStillLiters + assignedSparklingLiters;
+                    
+                    // Errore se aggiungo a LISCIA
+                    const stillError = Math.abs(((assignedStillLiters + bottle) / (totalAssignedLiters + bottle)) - targetStillRatio);
+                    // Errore se aggiungo a GASSATA
+                    const sparklingError = Math.abs((assignedStillLiters / (totalAssignedLiters + bottle)) - targetStillRatio);
+
+                    if (stillError <= sparklingError) {
+                        stillBottles.push(bottle);
+                        assignedStillLiters += bottle;
+                    } else {
+                        sparklingBottles.push(bottle);
+                        assignedSparklingLiters += bottle;
+                    }
+                }
+
+                // 4. CALCOLA COSTO FINALE
+                const totalCost = (assignedStillLiters * PRICE_STILL) + (assignedSparklingLiters * PRICE_SPARKLING);
                 const roundedCost = Math.ceil(totalCost / 0.05) * 0.05;
 
-                // 5. Visualizza il costo totale
+                // 5. VISUALIZZA COSTO E MONETE
                 document.getElementById('total-amount').textContent = `€ ${roundedCost.toFixed(2).replace('.', ',')}`;
-
-                // 6. Calcola e visualizza le monete
                 const coinsDisplay = document.getElementById('coins-display');
                 coinsDisplay.innerHTML = '';
                 calculateCoins(roundedCost, coinsDisplay);
-
-                // 7. Visualizza le istruzioni di prelievo
+                
+                // 6. VISUALIZZA PIANO DI RIEMPIMENTO
                 const instructionsDisplay = document.getElementById('instructions-display');
                 instructionsDisplay.innerHTML = '';
-                
+
                 if (state.dispensers === 1) {
-                    instructionsDisplay.innerHTML = `
-                        <div class="dispenser-column">
-                            <h3>EROGATORE UNICO</h3>
-                            <p class="water-type">💧 Liscia</p>
-                            <p class="water-liters">${stillLiters.toFixed(2).replace('.', ',')} Litri</p>
-                            <p class="water-type">✨ Gassata</p>
-                            <p class="water-liters">${sparklingLiters.toFixed(2).replace('.', ',')} Litri</p>
-                        </div>
+                    instructionsDisplay.appendChild(createInstructionGroup("💧 LISCIA", stillBottles));
+                    instructionsDisplay.appendChild(createInstructionGroup("✨ GASSATA", sparklingBottles));
+                } else {
+                    const finalSplit = document.createElement('div');
+                    finalSplit.className = 'final-split';
+                    
+                    const dispenser1Tasks = [];
+                    const dispenser2Tasks = [];
+                    
+                    // Bilancia il NUMERO di bottiglie tra gli erogatori
+                    stillBottles.forEach((b, i) => (i % 2 === 0) ? dispenser1Tasks.push(`💧 Liscia: ${b} L`) : dispenser2Tasks.push(`💧 Liscia: ${b} L`));
+                    sparklingBottles.forEach((b, i) => ((stillBottles.length + i) % 2 === 0) ? dispenser1Tasks.push(`✨ Gassata: ${b} L`) : dispenser2Tasks.push(`✨ Gassata: ${b} L`));
+                    
+                    finalSplit.innerHTML = `
+                        <div>${createDispenserColumn("EROGATORE 1", dispenser1Tasks)}</div>
+                        <div>${createDispenserColumn("EROGATORE 2", dispenser2Tasks)}</div>
                     `;
-                } else { // 2 erogatori
-                    const stillPerDispenser = stillLiters / 2;
-                    const sparklingPerDispenser = sparklingLiters / 2;
-                    instructionsDisplay.innerHTML = `
-                        <div class="dispenser-column">
-                            <h3>EROGATORE 1</h3>
-                            <p class="water-type">💧 Liscia</p>
-                            <p class="water-liters">${stillPerDispenser.toFixed(2).replace('.', ',')} L</p>
-                            <p class="water-type">✨ Gassata</p>
-                            <p class="water-liters">${sparklingPerDispenser.toFixed(2).replace('.', ',')} L</p>
-                        </div>
-                        <div class="dispenser-column">
-                            <h3>EROGATORE 2</h3>
-                            <p class="water-type">💧 Liscia</p>
-                            <p class="water-liters">${stillPerDispenser.toFixed(2).replace('.', ',')} L</p>
-                            <p class="water-type">✨ Gassata</p>
-                            <p class="water-liters">${sparklingPerDispenser.toFixed(2).replace('.', ',')} L</p>
-                        </div>
-                    `;
+                    instructionsDisplay.appendChild(finalSplit);
                 }
-                
-                // 8. Naviga alla schermata dei risultati
+
                 navigateTo('screen-results');
             };
+            
+            const createInstructionGroup = (title, bottles) => {
+                const group = document.createElement('div');
+                group.className = 'instruction-group';
+                const bottleCounts = bottles.reduce((acc, b) => { acc[b] = (acc[b] || 0) + 1; return acc; }, {});
+                
+                let listHtml = `<h3>${title} (${bottles.reduce((a,b) => a+b, 0).toLocaleString('it-IT')} L)</h3>`;
+                if (bottles.length > 0) {
+                    listHtml += '<ul>';
+                    for (const [size, count] of Object.entries(bottleCounts).sort((a,b) => b[0]-a[0])) {
+                        listHtml += `<li><strong>${count}x</strong> bottiglia da ${size.toLocaleString('it-IT')} Litri</li>`;
+                    }
+                    listHtml += '</ul>';
+                } else {
+                    listHtml += '<p style="text-align:center; font-size:1.1rem; color: #888;">Nessuna</p>';
+                }
+                group.innerHTML = listHtml;
+                return group;
+            };
+            
+            const createDispenserColumn = (title, tasks) => {
+                 let listHtml = `<div class="instruction-group"><h3>${title}</h3>`;
+                 if (tasks.length > 0) {
+                    listHtml += '<ul>';
+                    tasks.forEach(task => { listHtml += `<li>${task}</li>`; });
+                    listHtml += '</ul>';
+                 } else {
+                    listHtml += '<p style="text-align:center; font-size:1.1rem; color: #888;">Niente da questo lato</p>';
+                 }
+                 listHtml += '</div>';
+                 return listHtml;
+            }
 
             const calculateCoins = (amount, container) => {
                 let remaining = amount;
                 const coins = [2, 1, 0.5, 0.2, 0.1, 0.05];
-                
                 coins.forEach(coinValue => {
+                    if (remaining < 0.01) return;
                     const count = Math.floor(remaining.toFixed(2) / coinValue);
                     if (count > 0) {
                         const coinText = coinValue >= 1 ? `${coinValue}€` : `${Math.round(coinValue * 100)}c`;
@@ -488,18 +536,11 @@
                 });
             };
 
-            // --- Pulsante Ricomincia ---
             document.getElementById('btn-restart').addEventListener('click', () => {
-                // Resetta lo stato
-                state.bottles = { '5': 0, '2': 0, '1.5': 0, '1': 0 }; // MODIFICATO: aggiunto 1.5
-
-                // Resetta l'UI della prima schermata
-                document.getElementById('count-5').textContent = '0';
-                document.getElementById('count-2').textContent = '0';
-                document.getElementById('count-1.5').textContent = '0'; // MODIFICATO: aggiunto 1.5
-                document.getElementById('count-1').textContent = '0';
-
-                // Torna alla prima schermata
+                state.bottles = { '5': 0, '2': 0, '1.5': 0, '1': 0 };
+                Object.keys(state.bottles).forEach(size => {
+                    document.getElementById(`count-${size}`).textContent = '0';
+                });
                 navigateTo('screen-bottles');
             });
 
