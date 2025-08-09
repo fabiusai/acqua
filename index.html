@@ -21,9 +21,9 @@
             padding: 15px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Allinea in alto per vedere l'inizio */
+            align-items: flex-start;
             min-height: 100vh;
-            -webkit-tap-highlight-color: transparent; /* Rimuove il flash blu al tocco */
+            -webkit-tap-highlight-color: transparent;
         }
 
         #app-container {
@@ -253,6 +253,16 @@
                     <button class="btn-control" data-bottle="2" data-action="plus">+</button>
                 </div>
             </div>
+            <!-- NUOVA BOTTIGLIA -->
+            <div class="bottle-selector">
+                <div class="bottle-icon">🍶</div>
+                <div class="bottle-label">1,5 Litri</div>
+                <div class="controls">
+                    <button class="btn-control" data-bottle="1.5" data-action="minus">-</button>
+                    <span id="count-1.5">0</span>
+                    <button class="btn-control" data-bottle="1.5" data-action="plus">+</button>
+                </div>
+            </div>
             <div class="bottle-selector">
                 <div class="bottle-icon">💧</div>
                 <div class="bottle-label">1 Litro</div>
@@ -330,15 +340,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Stato dell'applicazione
             const state = {
-                bottles: { '5': 0, '2': 0, '1': 0 }, // MODIFICATO: da 6 a 5
-                waterMix: null, // 'balanced', 'prevalence_still', 'prevalence_sparkling'
-                dispensers: null // 1 o 2
+                bottles: { '5': 0, '2': 0, '1.5': 0, '1': 0 }, // MODIFICATO: aggiunto 1.5
+                waterMix: null,
+                dispensers: null
             };
 
-            const PRICE_STILL = 0.07; // 7 centesimi
-            const PRICE_SPARKLING = 0.10; // 10 centesimi
+            const PRICE_STILL = 0.07;
+            const PRICE_SPARKLING = 0.10;
 
-            // Funzione per navigare tra le schermate
             const navigateTo = (screenId) => {
                 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
                 document.getElementById(screenId).classList.add('active');
@@ -360,7 +369,8 @@
             });
             
             document.getElementById('btn-to-water-type').addEventListener('click', () => {
-                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles[1] * 1); // MODIFICATO: da 6 a 5
+                // MODIFICATO: aggiunto calcolo per 1.5 litri
+                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles['1.5'] * 1.5) + (state.bottles[1] * 1);
                 if (totalLiters > 0) {
                     navigateTo('screen-water-type');
                 } else {
@@ -387,7 +397,8 @@
             // --- Schermata 4: Calcolo e Visualizzazione Risultati ---
             const calculateAndShowResults = () => {
                 // 1. Calcola litri totali
-                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles[1] * 1); // MODIFICATO: da 6 a 5
+                // MODIFICATO: aggiunto calcolo per 1.5 litri
+                const totalLiters = (state.bottles[5] * 5) + (state.bottles[2] * 2) + (state.bottles['1.5'] * 1.5) + (state.bottles[1] * 1);
 
                 // 2. Calcola litri per tipo di acqua
                 let stillLiters = 0;
@@ -418,12 +429,12 @@
 
                 // 6. Calcola e visualizza le monete
                 const coinsDisplay = document.getElementById('coins-display');
-                coinsDisplay.innerHTML = ''; // Pulisce la vista precedente
+                coinsDisplay.innerHTML = '';
                 calculateCoins(roundedCost, coinsDisplay);
 
                 // 7. Visualizza le istruzioni di prelievo
                 const instructionsDisplay = document.getElementById('instructions-display');
-                instructionsDisplay.innerHTML = ''; // Pulisce la vista precedente
+                instructionsDisplay.innerHTML = '';
                 
                 if (state.dispensers === 1) {
                     instructionsDisplay.innerHTML = `
@@ -467,7 +478,7 @@
                 coins.forEach(coinValue => {
                     const count = Math.floor(remaining.toFixed(2) / coinValue);
                     if (count > 0) {
-                        const coinText = coinValue >= 1 ? `${coinValue}€` : `${coinValue * 100}c`;
+                        const coinText = coinValue >= 1 ? `${coinValue}€` : `${Math.round(coinValue * 100)}c`;
                         const coinElement = document.createElement('div');
                         coinElement.className = 'coin';
                         coinElement.innerHTML = `<span class="coin-icon">💰</span> <span class="coin-label">${count} x ${coinText}</span>`;
@@ -480,11 +491,12 @@
             // --- Pulsante Ricomincia ---
             document.getElementById('btn-restart').addEventListener('click', () => {
                 // Resetta lo stato
-                state.bottles = { '5': 0, '2': 0, '1': 0 }; // MODIFICATO: da 6 a 5
+                state.bottles = { '5': 0, '2': 0, '1.5': 0, '1': 0 }; // MODIFICATO: aggiunto 1.5
 
                 // Resetta l'UI della prima schermata
-                document.getElementById('count-5').textContent = '0'; // MODIFICATO: da 6 a 5
+                document.getElementById('count-5').textContent = '0';
                 document.getElementById('count-2').textContent = '0';
+                document.getElementById('count-1.5').textContent = '0'; // MODIFICATO: aggiunto 1.5
                 document.getElementById('count-1').textContent = '0';
 
                 // Torna alla prima schermata
