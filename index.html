@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Acqua Facile</title>
+    
+    <!-- Queste righe migliorano l'aspetto se salvi l'app sulla schermata Home del telefono -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/200/water-bottle.png">
+    <link rel="icon" href="https://img.icons8.com/plasticine/200/water-bottle.png">
+
+    <style>
+        /* Stile Generale */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Allinea in alto per vedere l'inizio */
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent; /* Rimuove il flash blu al tocco */
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #005a8d;
+            font-size: 2rem;
+            margin-top: 5px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #007acc;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        /* Gestione Schermate */
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+
+        /* Schermata 1: Bottiglie */
+        .bottle-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #e9f5ff;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .bottle-icon {
+            font-size: 2.5rem;
+        }
+
+        .bottle-label {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #005a8d;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .controls span {
+            font-size: 2.2rem;
+            font-weight: bold;
+            width: 50px;
+            text-align: center;
+        }
+
+        .btn-control {
+            font-size: 2.2rem;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid #007acc;
+            background-color: #fff;
+            color: #007acc;
+            font-weight: bold;
+        }
+
+        /* Schermata 2 & 3: Pulsanti di scelta */
+        .choice-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-choice {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #b3daff;
+            background-color: #f0f8ff;
+            border-radius: 15px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .btn-choice:focus, .btn-choice:active {
+            background-color: #cce7ff;
+            border-color: #007acc;
+        }
+
+        .btn-choice .icon {
+            font-size: 3.5rem;
+            margin-bottom: 8px;
+        }
+        .btn-choice .label {
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #005a8d;
+        }
+        .btn-choice .desc {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Pulsanti di Navigazione */
+        .btn-nav {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        /* Schermata 4: Risultati */
+        .result-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .total-cost p {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        #coins-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .coin {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #ffc107;
+        }
+        .coin-icon {
+            font-size: 1.8rem;
+        }
+        .coin-label {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        #instructions-display {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .dispenser-column {
+            flex: 1;
+            padding: 15px;
+            background: #e9f5ff;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .dispenser-column h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: #005a8d;
+        }
+        .water-type {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .water-liters {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+
+        <!-- Schermata 1: Scelta Bottiglie -->
+        <div class="screen active" id="screen-bottles">
+            <h1>Quante bottiglie?</h1>
+            <div class="bottle-selector">
+                <div class="bottle-icon">🫙</div>
+                <div class="bottle-label">5 Litri</div>
+                <div class="controls">
+                    <button class="btn-control" data-bottle="5" data-action="minus">-</button>
+                    <span id="count-5">0</span>
+                    <button class="btn-control" data-bottle="5" data-action="plus">+</button>
+                </div>
+            </div>
+            <div class="bottle-selector">
+                <div class="bottle-icon">🍾</div>
+                <
