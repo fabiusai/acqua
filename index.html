@@ -10,7 +10,6 @@
     <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/200/water-bottle.png">
     <link rel="icon" href="https://img.icons8.com/plasticine/200/water-bottle.png">
 
-    <!-- Libreria per creare l'immagine dall'HTML -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
@@ -20,43 +19,29 @@
             background-color: #f0f4f8;
             color: #333;
             margin: 0;
-            padding: 80px 15px 15px 15px; /* Spazio per la testata fissa */
+            padding: 80px 15px 15px 15px;
             -webkit-tap-highlight-color: transparent;
         }
 
         /* Testata Fissa */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             background-color: #007acc;
-            color: white;
-            padding: 15px;
+            color: white; padding: 15px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
         }
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-        }
+        header h1 { margin: 0; font-size: 1.8rem; }
 
-        #app-container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-        }
+        #app-container { width: 100%; max-width: 480px; margin: 0 auto; }
 
         h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #007acc;
+            font-size: 1.2rem; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #007acc;
             border-bottom: 2px solid #e9ecef;
-            padding-bottom: 8px;
-            margin-top: 20px;
-            margin-bottom: 15px;
+            padding-bottom: 8px; margin-top: 20px; margin-bottom: 15px;
         }
 
         /* Gestione Schermate */
@@ -65,13 +50,9 @@
 
         /* Schermata 1: Bottiglie */
         .bottle-selector {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px; background-color: #ffffff;
+            border-radius: 15px; margin-bottom: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .bottle-icon { font-size: 2.5rem; }
@@ -79,21 +60,16 @@
         .controls { display: flex; align-items: center; }
         .controls span { font-size: 2.2rem; font-weight: bold; width: 50px; text-align: center; }
         .btn-control {
-            font-size: 2.2rem;
-            width: 55px; height: 55px;
-            border-radius: 50%;
-            border: none;
-            background-color: #e9f5ff;
-            color: #007acc;
-            font-weight: bold;
+            font-size: 2.2rem; width: 55px; height: 55px;
+            border-radius: 50%; border: none;
+            background-color: #e9f5ff; color: #007acc; font-weight: bold;
         }
 
         /* Schermate 2: Pulsanti di scelta */
         .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .btn-choice {
             padding: 20px 10px; font-size: 1.2rem;
-            border: 2px solid #b3daff;
-            background-color: #f0f8ff;
+            border: 2px solid #b3daff; background-color: #f0f8ff;
             border-radius: 15px; text-align: center;
             width: 100%; box-sizing: border-box; cursor: pointer;
         }
@@ -111,19 +87,15 @@
             border-radius: 15px; margin-top: 30px; cursor: pointer;
         }
         #btn-to-water-type { background-color: #007acc; }
-        #btn-restart { background-color: #28a745; }
         
         /* Schermata 4: Risultati */
         .result-section {
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 15px;
+            margin-bottom: 20px; padding: 20px;
+            background-color: #ffffff; border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         #total-amount {
-            font-size: 4rem; /* Carattere grande per l'importo */
-            font-weight: bold;
+            font-size: 4rem; font-weight: bold;
             color: #28a745; text-align: center; margin: 0;
         }
         
@@ -146,55 +118,29 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        #btn-export {
-            padding: 15px; font-size: 1.2rem; font-weight: bold;
-            background-color: #ffc107; color: #333;
+        .btn-action {
+            padding: 15px; font-size: 1.1rem; font-weight: bold;
             border: none; border-radius: 15px; cursor: pointer;
+            text-align: center;
         }
+        #btn-export { background-color: #ffc107; color: #333; }
+        #btn-restart { background-color: #dc3545; color: white; }
+        #btn-edit-bottles, #btn-edit-water { background-color: #007acc; color: white; }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>CalcolAcqua</h1>
-    </header>
+    <header><h1>CalcolAcqua</h1></header>
 
     <div id="app-container">
         <!-- Schermata 1: Scelta Bottiglie -->
         <div class="screen active" id="screen-bottles">
             <h2>1. Scegli le bottiglie</h2>
-            <div class="bottle-selector">
-                <div class="bottle-icon">🫙</div><div class="bottle-label">5 L</div>
-                <div class="controls">
-                    <button class="btn-control" data-bottle="5" data-action="minus">-</button>
-                    <span id="count-5">0</span>
-                    <button class="btn-control" data-bottle="5" data-action="plus">+</button>
-                </div>
-            </div>
-            <div class="bottle-selector">
-                <div class="bottle-icon">🍾</div><div class="bottle-label">2 L</div>
-                <div class="controls">
-                    <button class="btn-control" data-bottle="2" data-action="minus">-</button>
-                    <span id="count-2">0</span>
-                    <button class="btn-control" data-bottle="2" data-action="plus">+</button>
-                </div>
-            </div>
-            <div class="bottle-selector">
-                <div class="bottle-icon">🍶</div><div class="bottle-label">1,5 L</div>
-                <div class="controls">
-                    <button class="btn-control" data-bottle="1.5" data-action="minus">-</button>
-                    <span id="count-1.5">0</span>
-                    <button class="btn-control" data-bottle="1.5" data-action="plus">+</button>
-                </div>
-            </div>
-            <div class="bottle-selector">
-                <div class="bottle-icon">💧</div><div class="bottle-label">1 L</div>
-                <div class="controls">
-                    <button class="btn-control" data-bottle="1" data-action="minus">-</button>
-                    <span id="count-1">0</span>
-                    <button class="btn-control" data-bottle="1" data-action="plus">+</button>
-                </div>
-            </div>
+            <div class="bottle-selector"><div class="bottle-icon">🫙</div><div class="bottle-label">5 L</div><div class="controls"><button class="btn-control" data-bottle="5" data-action="minus">-</button><span id="count-5">0</span><button class="btn-control" data-bottle="5" data-action="plus">+</button></div></div>
+            <div class="bottle-selector"><div class="bottle-icon">🍾</div><div class="bottle-label">2 L</div><div class="controls"><button class="btn-control" data-bottle="2" data-action="minus">-</button><span id="count-2">0</span><button class="btn-control" data-bottle="2" data-action="plus">+</button></div></div>
+            <div class="bottle-selector"><div class="bottle-icon">🍶</div><div class="bottle-label">1,5 L</div><div class="controls"><button class="btn-control" data-bottle="1.5" data-action="minus">-</button><span id="count-1.5">0</span><button class="btn-control" data-bottle="1.5" data-action="plus">+</button></div></div>
+            <div class="bottle-selector"><div class="bottle-icon">💧</div><div class="bottle-label">1 L</div><div class="controls"><button class="btn-control" data-bottle="1" data-action="minus">-</button><span id="count-1">0</span><button class="btn-control" data-bottle="1" data-action="plus">+</button></div></div>
             <button class="btn-nav" id="btn-to-water-type">Avanti</button>
         </div>
 
@@ -202,15 +148,15 @@
         <div class="screen" id="screen-water-type">
             <h2>2. Scegli l'acqua</h2>
             <div class="choice-grid">
-                <button class="btn-choice" data-mix="only_still"><div class="icon">💧</div><div class="label">Solo Liscia</div><div class="desc">100% Acqua Liscia</div></button>
-                <button class="btn-choice" data-mix="only_sparkling"><div class="icon">✨</div><div class="label">Solo Gassata</div><div class="desc">100% Acqua Gassata</div></button>
-                <button class="btn-choice" data-mix="balanced"><div class="icon">⚖️</div><div class="label">Bilanciato</div><div class="desc">50% Liscia / 50% Gassata</div></button>
-                <button class="btn-choice" data-mix="prevalence_still"><div class="icon">💧</div><div class="label">Prevalenza Liscia</div><div class="desc">70% Liscia / 30% Gassata</div></button>
-                <button class="btn-choice" data-mix="prevalence_sparkling"><div class="icon">✨</div><div class="label">Prevalenza Gassata</div><div class="desc">30% Liscia / 70% Gassata</div></button>
+                <button class="btn-choice" data-mix="only_still"><div class="icon">💧</div><div class="label">Solo Liscia</div><div class="desc">100% Liscia</div></button>
+                <button class="btn-choice" data-mix="only_sparkling"><div class="icon">✨</div><div class="label">Solo Gassata</div><div class="desc">100% Gassata</div></button>
+                <button class="btn-choice" data-mix="balanced"><div class="icon">⚖️</div><div class="label">Bilanciato</div><div class="desc">50% / 50%</div></button>
+                <button class="btn-choice" data-mix="prevalence_still"><div class="icon">💧</div><div class="label">Prevalenza Liscia</div><div class="desc">70% / 30%</div></button>
+                <button class="btn-choice" data-mix="prevalence_sparkling"><div class="icon">✨</div><div class="label">Prevalenza Gassata</div><div class="desc">30% / 70%</div></button>
             </div>
         </div>
         
-        <!-- Schermata 4: Risultati -->
+        <!-- Schermata Risultati -->
         <div class="screen" id="screen-results">
             <div id="export-content">
                 <div class="result-section">
@@ -221,9 +167,14 @@
                     <h2>Piano di riempimento</h2>
                 </div>
             </div>
-            <div class="action-buttons">
-                <button id="btn-export">📷 Esporta</button>
-                <button id="btn-restart" class="btn-nav" style="margin-top: 0;">Ricomincia</button>
+            <div class="result-section">
+                <h2>Azioni</h2>
+                <div class="action-buttons">
+                    <button id="btn-edit-bottles" class="btn-action">Modifica Bottiglie</button>
+                    <button id="btn-edit-water" class="btn-action">Modifica Acqua</button>
+                    <button id="btn-export" class="btn-action">📷 Esporta</button>
+                    <button id="btn-restart" class="btn-action">Ricomincia</button>
+                </div>
             </div>
         </div>
     </div>
@@ -241,6 +192,7 @@
         const navigateTo = (screenId) => {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0); // Torna in cima alla pagina
         };
 
         document.querySelectorAll('.btn-control').forEach(button => {
@@ -285,7 +237,7 @@
             let currentStillLiters = 0;
             
             bottleList.forEach(bottleSize => {
-                if (Math.abs((currentStillLiters + bottleSize) - targetStill) < Math.abs(currentStillLiters - targetStill)) {
+                if (Math.abs((currentStillLiters + bottleSize) - targetStill) <= Math.abs(currentStillLiters - targetStill)) {
                     assignment.still.push(bottleSize);
                     currentStillLiters += bottleSize;
                 } else {
@@ -312,20 +264,15 @@
                 case 'only_sparkling': stillRatio = 0; break;
                 case 'prevalence_still': stillRatio = 0.7; break;
                 case 'prevalence_sparkling': stillRatio = 0.3; break;
-                case 'balanced':
-                default:
-                    stillRatio = 0.5; break;
+                case 'balanced': default: stillRatio = 0.5; break;
             }
 
             const distribution = distributeBottles(state.bottles, stillRatio);
-            
             const totalCost = (distribution.stillLiters * PRICE_STILL) + (distribution.sparklingLiters * PRICE_SPARKLING);
             const roundedCost = Math.ceil(totalCost / 0.05) * 0.05;
 
             document.getElementById('total-amount').textContent = `€ ${roundedCost.toFixed(2).replace('.', ',')}`;
-            
             displayFillPlan(distribution);
-            
             navigateTo('screen-results');
         };
 
@@ -355,13 +302,10 @@
             createSection('GASSATA', '✨', distribution.sparklingLiters, distribution.sparkling);
         };
         
-        // Funzione Esporta Immagine
         document.getElementById('btn-export').addEventListener('click', () => {
             const exportArea = document.getElementById('export-content');
-            html2canvas(exportArea, { 
-                backgroundColor: "#f0f4f8", // Sfondo uguale al body per un look pulito
-                scale: 2 // Aumenta la risoluzione dell'immagine
-            }).then(canvas => {
+            html2canvas(exportArea, { backgroundColor: "#ffffff", scale: 2 })
+            .then(canvas => {
                 const image = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 link.href = image;
@@ -370,13 +314,21 @@
             });
         });
 
-        // Funzione Ricomincia
         document.getElementById('btn-restart').addEventListener('click', () => {
             Object.keys(state.bottles).forEach(size => {
                 state.bottles[size] = 0;
                 document.getElementById(`count-${size}`).textContent = '0';
             });
             navigateTo('screen-bottles');
+        });
+        
+        // NUOVI PULSANTI DI MODIFICA
+        document.getElementById('btn-edit-bottles').addEventListener('click', () => {
+            navigateTo('screen-bottles');
+        });
+
+        document.getElementById('btn-edit-water').addEventListener('click', () => {
+            navigateTo('screen-water-type');
         });
     });
     </script>
