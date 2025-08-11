@@ -44,27 +44,19 @@
         }
 
         h2 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             color: #007acc;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid #e9ecef;
             padding-bottom: 8px;
             margin-top: 20px;
-        }
-        
-        h3 {
-             margin-top: 0;
-            font-size: 1.2rem;
-            color: #005a8d;
-            text-align: center;
+            margin-bottom: 15px;
         }
 
         /* Gestione Schermate */
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
+        .screen { display: none; }
+        .screen.active { display: block; }
 
         /* Schermata 1: Bottiglie */
         .bottle-selector {
@@ -72,37 +64,17 @@
             align-items: center;
             justify-content: space-between;
             padding: 15px;
-            background-color: #e9f5ff;
+            background-color: #f8f9fa;
             border-radius: 15px;
             margin-bottom: 15px;
         }
-
-        .bottle-icon {
-            font-size: 2.5rem;
-        }
-
-        .bottle-label {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #005a8d;
-        }
-
-        .controls {
-            display: flex;
-            align-items: center;
-        }
-
-        .controls span {
-            font-size: 2.2rem;
-            font-weight: bold;
-            width: 50px;
-            text-align: center;
-        }
-
+        .bottle-icon { font-size: 2.5rem; }
+        .bottle-label { font-size: 1.4rem; font-weight: bold; color: #005a8d; }
+        .controls { display: flex; align-items: center; }
+        .controls span { font-size: 2.2rem; font-weight: bold; width: 50px; text-align: center; }
         .btn-control {
             font-size: 2.2rem;
-            width: 55px;
-            height: 55px;
+            width: 55px; height: 55px;
             border-radius: 50%;
             border: 2px solid #007acc;
             background-color: #fff;
@@ -110,149 +82,92 @@
             font-weight: bold;
         }
 
-        /* Schermate di Scelta */
-        .choice-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        /* Schermate 2 & 3: Pulsanti di scelta */
+        .choice-grid { display: flex; flex-direction: column; gap: 15px; }
         .btn-choice {
-            padding: 15px;
-            font-size: 1.2rem;
+            padding: 15px; font-size: 1.2rem;
             border: 2px solid #b3daff;
             background-color: #f0f8ff;
-            border-radius: 15px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-            cursor: pointer;
+            border-radius: 15px; text-align: center;
+            width: 100%; box-sizing: border-box; cursor: pointer;
         }
-
-        .btn-choice:focus, .btn-choice:active {
-            background-color: #cce7ff;
-            border-color: #007acc;
-        }
-
-        .btn-choice .icon {
-            font-size: 3.5rem;
-            margin-bottom: 8px;
-        }
-        .btn-choice .label {
-            font-weight: bold;
-            font-size: 1.6rem;
-            color: #005a8d;
-        }
-        .btn-choice .desc {
-            font-size: 1rem;
-            color: #555;
-            margin-top: 5px;
-        }
+        .btn-choice:focus, .btn-choice:active { background-color: #cce7ff; border-color: #007acc; }
+        .btn-choice .icon { font-size: 3.5rem; margin-bottom: 8px; }
+        .btn-choice .label { font-weight: bold; font-size: 1.6rem; color: #005a8d; }
+        .btn-choice .desc { font-size: 1rem; color: #555; margin-top: 5px; }
 
         /* Pulsanti di Navigazione */
         .btn-nav {
-            display: block;
-            width: 100%;
-            padding: 20px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-align: center;
+            display: block; width: 100%;
+            padding: 20px; font-size: 1.8rem;
+            font-weight: bold; text-align: center;
             background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            margin-top: 30px;
-            cursor: pointer;
+            color: white; border: none;
+            border-radius: 15px; margin-top: 30px; cursor: pointer;
         }
 
         /* Schermata 4: Risultati */
         .result-section {
             margin-bottom: 20px;
-            padding: 15px;
+            padding: 20px;
             background-color: #f8f9fa;
             border-radius: 15px;
         }
-
         .total-cost p {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #28a745;
-            text-align: center;
-            margin: 10px 0;
+            font-size: 3rem; font-weight: bold;
+            color: #28a745; text-align: center; margin: 0;
         }
-
         #coins-display {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
             justify-content: center;
             align-items: center;
         }
-
         .coin {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #fff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 2px solid #ffc107;
+            display: flex; align-items: center; gap: 8px;
+            background-color: #fff; padding: 8px 12px;
+            border-radius: 20px; border: 2px solid #ffc107;
+            justify-content: center;
         }
-        .coin-icon {
-            font-size: 1.8rem;
-        }
-        .coin-label {
+        .coin-icon { font-size: 1.5rem; }
+        .coin-label { font-size: 1.1rem; font-weight: bold; }
+
+        /* Nuovo Piano di Riempimento */
+        .fill-plan-header {
             font-size: 1.3rem;
             font-weight: bold;
+            color: #005a8d;
+            margin-bottom: 10px;
         }
-
-        #instructions-display {
+        .fill-plan-header span {
+            font-weight: normal;
+            color: #555;
+        }
+        .fill-plan-item {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .instruction-group {
-            background: #e9f5ff;
-            border-radius: 10px;
-            padding: 15px;
-        }
-
-        .instruction-group ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .instruction-group li {
-            font-size: 1.2rem;
+            justify-content: space-between;
+            align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #cce7ff;
+            border-bottom: 1px solid #e9ecef;
         }
-        
-        .instruction-group li:last-child {
+        .fill-plan-item:last-child {
             border-bottom: none;
         }
-
-        .instruction-group li strong {
-            display: inline-block;
-            width: 80px;
+        .fill-plan-qty {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
         }
-        
-        .final-split {
-            display: flex;
-            gap: 15px;
+        .fill-plan-desc {
+            font-size: 1.1rem;
+            color: #555;
         }
-        .final-split > div {
-             flex: 1;
-        }
-
     </style>
 </head>
 <body>
 
     <div id="app-container">
-
         <!-- Schermata 1: Scelta Bottiglie -->
         <div class="screen active" id="screen-bottles">
             <h1>Quante bottiglie?</h1>
@@ -295,256 +210,180 @@
             <button class="btn-nav" id="btn-to-water-type">Avanti</button>
         </div>
 
-        <!-- Schermata 2: Scelta Tipo Acqua -->
+        <!-- Schermate 2 -->
         <div class="screen" id="screen-water-type">
             <h1>Che tipo di acqua?</h1>
             <div class="choice-grid">
-                <button class="btn-choice" data-mix="balanced">
-                    <div class="icon">⚖️</div>
-                    <div class="label">Bilanciato</div>
-                    <div class="desc">50% Liscia / 50% Gassata</div>
-                </button>
-                <button class="btn-choice" data-mix="prevalence_still">
-                    <div class="icon">💧</div>
-                    <div class="label">Prevalenza Liscia</div>
-                    <div class="desc">70% Liscia / 30% Gassata</div>
-                </button>
-                <button class="btn-choice" data-mix="prevalence_sparkling">
-                    <div class="icon">✨</div>
-                    <div class="label">Prevalenza Gassata</div>
-                    <div class="desc">30% Liscia / 70% Gassata</div>
-                </button>
-            </div>
-        </div>
-
-        <!-- Schermata 3: Scelta Erogatori -->
-        <div class="screen" id="screen-dispensers">
-            <h1>Come prelevi?</h1>
-             <div class="choice-grid">
-                <button class="btn-choice" data-dispensers="1">
-                    <div class="icon">➡️</div>
-                    <div class="label">1 Erogatore</div>
-                </button>
-                <button class="btn-choice" data-dispensers="2">
-                    <div class="icon">✌️</div>
-                    <div class="label">2 Erogatori</div>
-                </button>
+                <button class="btn-choice" data-mix="balanced"><div class="icon">⚖️</div><div class="label">Bilanciato</div><div class="desc">50% Liscia / 50% Gassata</div></button>
+                <button class="btn-choice" data-mix="prevalence_still"><div class="icon">💧</div><div class="label">Prevalenza Liscia</div><div class="desc">70% Liscia / 30% Gassata</div></button>
+                <button class="btn-choice" data-mix="prevalence_sparkling"><div class="icon">✨</div><div class="label">Prevalenza Gassata</div><div class="desc">30% Liscia / 70% Gassata</div></button>
             </div>
         </div>
         
         <!-- Schermata 4: Risultati -->
         <div class="screen" id="screen-results">
             <h1>Ecco cosa fare!</h1>
-            
-            <div class="result-section total-cost">
+            <div class="result-section">
                 <h2>Importo da caricare</h2>
-                <p id="total-amount">€ 0,00</p>
+                <p id="total-amount" class="total-cost">€ 0,00</p>
             </div>
-
-            <div class="result-section coins">
+            <div class="result-section">
                 <h2>Monete da usare</h2>
                 <div id="coins-display"></div>
             </div>
-
-            <div class="result-section instructions">
+            <div class="result-section" id="fill-plan-section">
                 <h2>Piano di riempimento</h2>
-                <div id="instructions-display"></div>
+                <!-- Il piano verrà inserito qui dal JS -->
             </div>
-
             <button class="btn-nav" id="btn-restart">Ricomincia</button>
         </div>
-
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const state = {
-                bottles: { '5': 0, '2': 0, '1.5': 0, '1': 0 },
-                waterMix: null,
-                dispensers: null
-            };
+    document.addEventListener('DOMContentLoaded', () => {
+        const state = {
+            bottles: { '5': 0, '2': 0, '1.5': 0, '1': 0 },
+            waterMix: null,
+        };
 
-            const PRICE_STILL = 0.07;
-            const PRICE_SPARKLING = 0.10;
+        const PRICE_STILL = 0.07; // 7 centesimi
+        const PRICE_SPARKLING = 0.10; // 10 centesimi
 
-            const navigateTo = (screenId) => {
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                document.getElementById(screenId).classList.add('active');
-            };
+        const navigateTo = (screenId) => {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        };
 
-            document.querySelectorAll('.btn-control').forEach(button => {
-                button.addEventListener('click', () => {
-                    const bottleSize = button.dataset.bottle;
-                    const action = button.dataset.action;
-                    if (action === 'plus') {
-                        state.bottles[bottleSize]++;
-                    } else if (action === 'minus' && state.bottles[bottleSize] > 0) {
-                        state.bottles[bottleSize]--;
-                    }
-                    document.getElementById(`count-${bottleSize}`).textContent = state.bottles[bottleSize];
-                });
+        document.querySelectorAll('.btn-control').forEach(button => {
+            button.addEventListener('click', () => {
+                const bottleSize = button.dataset.bottle;
+                const action = button.dataset.action;
+                if (action === 'plus') {
+                    state.bottles[bottleSize]++;
+                } else if (action === 'minus' && state.bottles[bottleSize] > 0) {
+                    state.bottles[bottleSize]--;
+                }
+                document.getElementById(`count-${bottleSize}`).textContent = state.bottles[bottleSize];
             });
-            
-            document.getElementById('btn-to-water-type').addEventListener('click', () => {
-                const totalLiters = Object.entries(state.bottles).reduce((acc, [size, count]) => acc + (parseFloat(size) * count), 0);
-                if (totalLiters > 0) {
-                    navigateTo('screen-water-type');
-                } else {
-                    alert('Aggiungi almeno una bottiglia per continuare!');
-                }
-            });
-
-            document.querySelectorAll('#screen-water-type .btn-choice').forEach(button => {
-                button.addEventListener('click', () => {
-                    state.waterMix = button.dataset.mix;
-                    navigateTo('screen-dispensers');
-                });
-            });
-
-            document.querySelectorAll('#screen-dispensers .btn-choice').forEach(button => {
-                button.addEventListener('click', () => {
-                    state.dispensers = parseInt(button.dataset.dispensers, 10);
-                    calculateAndShowResults();
-                });
-            });
-            
-            const calculateAndShowResults = () => {
-                // 1. CREA LISTA BOTTIGLIE
-                const bottleList = [];
-                for (const [size, count] of Object.entries(state.bottles)) {
-                    for (let i = 0; i < count; i++) {
-                        bottleList.push(parseFloat(size));
-                    }
-                }
-                bottleList.sort((a, b) => b - a); // Ordina dalla più grande alla più piccola
-
-                // 2. IMPOSTA RAPPORTO DESIDERATO
-                let targetStillRatio;
-                switch (state.waterMix) {
-                    case 'prevalence_still': targetStillRatio = 0.7; break;
-                    case 'prevalence_sparkling': targetStillRatio = 0.3; break;
-                    default: targetStillRatio = 0.5;
-                }
-
-                // 3. ASSEGNA BOTTIGLIE IN MODO INTELLIGENTE
-                const stillBottles = [];
-                const sparklingBottles = [];
-                let assignedStillLiters = 0;
-                let assignedSparklingLiters = 0;
-
-                for (const bottle of bottleList) {
-                    const totalAssignedLiters = assignedStillLiters + assignedSparklingLiters;
-                    
-                    // Errore se aggiungo a LISCIA
-                    const stillError = Math.abs(((assignedStillLiters + bottle) / (totalAssignedLiters + bottle)) - targetStillRatio);
-                    // Errore se aggiungo a GASSATA
-                    const sparklingError = Math.abs((assignedStillLiters / (totalAssignedLiters + bottle)) - targetStillRatio);
-
-                    if (stillError <= sparklingError) {
-                        stillBottles.push(bottle);
-                        assignedStillLiters += bottle;
-                    } else {
-                        sparklingBottles.push(bottle);
-                        assignedSparklingLiters += bottle;
-                    }
-                }
-
-                // 4. CALCOLA COSTO FINALE
-                const totalCost = (assignedStillLiters * PRICE_STILL) + (assignedSparklingLiters * PRICE_SPARKLING);
-                const roundedCost = Math.ceil(totalCost / 0.05) * 0.05;
-
-                // 5. VISUALIZZA COSTO E MONETE
-                document.getElementById('total-amount').textContent = `€ ${roundedCost.toFixed(2).replace('.', ',')}`;
-                const coinsDisplay = document.getElementById('coins-display');
-                coinsDisplay.innerHTML = '';
-                calculateCoins(roundedCost, coinsDisplay);
-                
-                // 6. VISUALIZZA PIANO DI RIEMPIMENTO
-                const instructionsDisplay = document.getElementById('instructions-display');
-                instructionsDisplay.innerHTML = '';
-
-                if (state.dispensers === 1) {
-                    instructionsDisplay.appendChild(createInstructionGroup("💧 LISCIA", stillBottles));
-                    instructionsDisplay.appendChild(createInstructionGroup("✨ GASSATA", sparklingBottles));
-                } else {
-                    const finalSplit = document.createElement('div');
-                    finalSplit.className = 'final-split';
-                    
-                    const dispenser1Tasks = [];
-                    const dispenser2Tasks = [];
-                    
-                    // Bilancia il NUMERO di bottiglie tra gli erogatori
-                    stillBottles.forEach((b, i) => (i % 2 === 0) ? dispenser1Tasks.push(`💧 Liscia: ${b} L`) : dispenser2Tasks.push(`💧 Liscia: ${b} L`));
-                    sparklingBottles.forEach((b, i) => ((stillBottles.length + i) % 2 === 0) ? dispenser1Tasks.push(`✨ Gassata: ${b} L`) : dispenser2Tasks.push(`✨ Gassata: ${b} L`));
-                    
-                    finalSplit.innerHTML = `
-                        <div>${createDispenserColumn("EROGATORE 1", dispenser1Tasks)}</div>
-                        <div>${createDispenserColumn("EROGATORE 2", dispenser2Tasks)}</div>
-                    `;
-                    instructionsDisplay.appendChild(finalSplit);
-                }
-
-                navigateTo('screen-results');
-            };
-            
-            const createInstructionGroup = (title, bottles) => {
-                const group = document.createElement('div');
-                group.className = 'instruction-group';
-                const bottleCounts = bottles.reduce((acc, b) => { acc[b] = (acc[b] || 0) + 1; return acc; }, {});
-                
-                let listHtml = `<h3>${title} (${bottles.reduce((a,b) => a+b, 0).toLocaleString('it-IT')} L)</h3>`;
-                if (bottles.length > 0) {
-                    listHtml += '<ul>';
-                    for (const [size, count] of Object.entries(bottleCounts).sort((a,b) => b[0]-a[0])) {
-                        listHtml += `<li><strong>${count}x</strong> bottiglia da ${size.toLocaleString('it-IT')} Litri</li>`;
-                    }
-                    listHtml += '</ul>';
-                } else {
-                    listHtml += '<p style="text-align:center; font-size:1.1rem; color: #888;">Nessuna</p>';
-                }
-                group.innerHTML = listHtml;
-                return group;
-            };
-            
-            const createDispenserColumn = (title, tasks) => {
-                 let listHtml = `<div class="instruction-group"><h3>${title}</h3>`;
-                 if (tasks.length > 0) {
-                    listHtml += '<ul>';
-                    tasks.forEach(task => { listHtml += `<li>${task}</li>`; });
-                    listHtml += '</ul>';
-                 } else {
-                    listHtml += '<p style="text-align:center; font-size:1.1rem; color: #888;">Niente da questo lato</p>';
-                 }
-                 listHtml += '</div>';
-                 return listHtml;
-            }
-
-            const calculateCoins = (amount, container) => {
-                let remaining = amount;
-                const coins = [2, 1, 0.5, 0.2, 0.1, 0.05];
-                coins.forEach(coinValue => {
-                    if (remaining < 0.01) return;
-                    const count = Math.floor(remaining.toFixed(2) / coinValue);
-                    if (count > 0) {
-                        const coinText = coinValue >= 1 ? `${coinValue}€` : `${Math.round(coinValue * 100)}c`;
-                        const coinElement = document.createElement('div');
-                        coinElement.className = 'coin';
-                        coinElement.innerHTML = `<span class="coin-icon">💰</span> <span class="coin-label">${count} x ${coinText}</span>`;
-                        container.appendChild(coinElement);
-                        remaining -= count * coinValue;
-                    }
-                });
-            };
-
-            document.getElementById('btn-restart').addEventListener('click', () => {
-                state.bottles = { '5': 0, '2': 0, '1.5': 0, '1': 0 };
-                Object.keys(state.bottles).forEach(size => {
-                    document.getElementById(`count-${size}`).textContent = '0';
-                });
-                navigateTo('screen-bottles');
-            });
-
         });
+        
+        document.getElementById('btn-to-water-type').addEventListener('click', () => {
+            const totalLiters = Object.keys(state.bottles).reduce((sum, size) => sum + state.bottles[size] * parseFloat(size), 0);
+            if (totalLiters > 0) navigateTo('screen-water-type');
+            else alert('Aggiungi almeno una bottiglia per continuare!');
+        });
+
+        document.querySelectorAll('#screen-water-type .btn-choice').forEach(button => {
+            button.addEventListener('click', () => {
+                state.waterMix = button.dataset.mix;
+                calculateAndShowResults();
+            });
+        });
+
+        const distributeBottles = (bottles, stillRatio) => {
+            const bottleList = [];
+            for (const sizeStr in bottles) {
+                const size = parseFloat(sizeStr);
+                for (let i = 0; i < bottles[sizeStr]; i++) bottleList.push(size);
+            }
+            bottleList.sort((a, b) => b - a);
+
+            const totalLiters = bottleList.reduce((sum, size) => sum + size, 0);
+            if (totalLiters === 0) return { still: {}, sparkling: {}, stillLiters: 0, sparklingLiters: 0 };
+
+            const targetStill = totalLiters * stillRatio;
+            const assignment = { still: [], sparkling: [] };
+            let currentStillLiters = 0;
+
+            bottleList.forEach(bottleSize => {
+                if (Math.abs((currentStillLiters + bottleSize) - targetStill) < Math.abs(currentStillLiters - targetStill)) {
+                    assignment.still.push(bottleSize);
+                    currentStillLiters += bottleSize;
+                } else {
+                    assignment.sparkling.push(bottleSize);
+                }
+            });
+
+            const group = list => list.reduce((acc, size) => { acc[size] = (acc[size] || 0) + 1; return acc; }, {});
+            const stillLiters = assignment.still.reduce((sum, size) => sum + size, 0);
+            const sparklingLiters = totalLiters - stillLiters;
+
+            return {
+                still: group(assignment.still),
+                sparkling: group(assignment.sparkling),
+                stillLiters: stillLiters,
+                sparklingLiters: sparklingLiters
+            };
+        };
+
+        const calculateAndShowResults = () => {
+            let stillRatio = 0.5;
+            if (state.waterMix === 'prevalence_still') stillRatio = 0.7;
+            if (state.waterMix === 'prevalence_sparkling') stillRatio = 0.3;
+
+            const distribution = distributeBottles(state.bottles, stillRatio);
+            
+            const totalCost = (distribution.stillLiters * PRICE_STILL) + (distribution.sparklingLiters * PRICE_SPARKLING);
+            const roundedCost = Math.ceil(totalCost / 0.05) * 0.05;
+
+            document.getElementById('total-amount').textContent = `€ ${roundedCost.toFixed(2).replace('.', ',')}`;
+            
+            displayCoins(roundedCost);
+            displayFillPlan(distribution);
+            
+            navigateTo('screen-results');
+        };
+
+        const displayCoins = (amount) => {
+            const container = document.getElementById('coins-display');
+            container.innerHTML = '';
+            let remaining = amount;
+            const coins = [2, 1, 0.5, 0.2, 0.1, 0.05];
+            
+            coins.forEach(coinValue => {
+                const count = Math.floor(remaining.toFixed(2) / coinValue);
+                if (count > 0) {
+                    const coinText = coinValue >= 1 ? `${coinValue}€` : `${Math.round(coinValue * 100)}c`;
+                    container.innerHTML += `<div class="coin"><span class="coin-icon">💰</span> <span class="coin-label">${count} x ${coinText}</span></div>`;
+                    remaining -= count * coinValue;
+                }
+            });
+        };
+
+        const displayFillPlan = (distribution) => {
+            const container = document.getElementById('fill-plan-section');
+            container.innerHTML = '<h2>Piano di riempimento</h2>';
+
+            const createSection = (title, icon, liters, bottles) => {
+                if (liters > 0) {
+                    let sectionHTML = `<div class="fill-plan-header">${icon} ${title} <span>(${String(liters).replace('.', ',')} L)</span></div>`;
+                    const sortedSizes = Object.keys(bottles).sort((a, b) => b - a);
+                    for (const size of sortedSizes) {
+                        sectionHTML += `
+                            <div class="fill-plan-item">
+                                <span class="fill-plan-qty">${bottles[size]}x</span>
+                                <span class="fill-plan-desc">bottiglia da ${size.replace('.', ',')} Litri</span>
+                            </div>`;
+                    }
+                    container.innerHTML += sectionHTML;
+                }
+            };
+
+            createSection('LISCIA', '💧', distribution.stillLiters, distribution.still);
+            if (distribution.stillLiters > 0 && distribution.sparklingLiters > 0) {
+                container.innerHTML += '<hr style="border:0; border-top:1px solid #eee; margin:15px 0;">';
+            }
+            createSection('GASSATA', '✨', distribution.sparklingLiters, distribution.sparkling);
+        };
+
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            Object.keys(state.bottles).forEach(size => {
+                state.bottles[size] = 0;
+                document.getElementById(`count-${size}`).textContent = '0';
+            });
+            navigateTo('screen-bottles');
+        });
+    });
     </script>
 </body>
 </html>
